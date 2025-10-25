@@ -1,9 +1,9 @@
-import { Outlet, Link } from "react-router-dom"; // Import Link ditambahkan di sini
+import { Outlet, Link } from "react-router-dom"; 
 
 export default function AdminLayout() {
   return (
     <>
-      <div className="antialiased bg-gray-50 dark:bg-gray-900">
+      <div className="antialiased bg-rose-100 dark:bg-gray-900">
         <nav className="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-50">
           <div className="flex flex-wrap justify-between items-center">
             <div className="flex justify-start items-center">
@@ -92,7 +92,7 @@ export default function AdminLayout() {
                   alt="user photo"
                 />
               </button>
-              {/* */}
+              
               <div
                 className="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 rounded-xl"
                 id="dropdown"
@@ -123,7 +123,7 @@ export default function AdminLayout() {
           </div>
         </nav>
 
-        {/* */}
+        
 
         <aside
           className="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"

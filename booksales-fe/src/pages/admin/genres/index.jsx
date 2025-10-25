@@ -1,89 +1,75 @@
 import { useEffect, useState } from "react";
-import { getGenres, deleteGenre } from "../../../_services/genres";
 import { Link } from "react-router-dom";
+import { getGenres, deleteGenre } from "../../../_services/genres";
 
 export default function AdminGenres() {
   const [genres, setGenres] = useState([]);
-  const [openDropdownId, setOpenDropdownId] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const genresData = await getGenres();
-      setGenres(genresData);
-    };
-    fetchData();
+    fetchGenres();
   }, []);
 
-  const toggleDropdown = (id) => {
-    setOpenDropdownId(openDropdownId === id ? null : id);
+  const fetchGenres = async () => {
+    const data = await getGenres();
+    setGenres(data);
+  };
+
+  const handleDelete = async (id) => {
+    if (confirm("Yakin ingin menghapus genre ini?")) {
+      await deleteGenre(id);
+      fetchGenres();
+    }
   };
 
   return (
-    <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
+    <section className="bg-rose-50 dark:bg-rose-900 p-4 sm:p-6">
       <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-        <div className="flex justify-between p-4">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Genres</h3>
-
+        <div className="flex justify-between items-center p-4">
+          <h2 className="text-xl font-semibold text-gray-700 dark:text-white">Genres</h2>
           <Link
-            to={"/admin/genres/create"}
-            className="flex items-center justify-center text-white bg-indigo-700 hover:bg-indigo-800 font-medium rounded-lg text-sm px-4 py-2"
+            to="/admin/genres/create"
+            className="px-4 py-2 text-white bg-indigo-700 rounded hover:bg-indigo-800"
           >
-            Add Genre
+            + Add Genre
           </Link>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-700">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
-                <th className="px-4 py-3">Genre</th>
-                <th className="px-4 py-3"></th>
+                <th className="px-4 py-3">Name</th>
+                <th className="px-4 py-3">Description</th>
+                <th className="px-4 py-3 text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {genres.map((genre) => (
-                <tr key={genre.id} className="border-b dark:border-gray-700">
-                  <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                    {genre.name}
-                  </td>
-
-                  <td className="px-4 py-3 flex justify-end relative">
-                    <button
-                      onClick={() => toggleDropdown(genre.id)}
-                      className="text-gray-500 hover:text-gray-800 dark:text-gray-400"
-                    >
-                      ⋮
-                    </button>
-
-                    {openDropdownId === genre.id && (
-                      <div className="absolute right-0 z-10 w-32 bg-white dark:bg-gray-700 rounded shadow">
-                        <ul className="py-1 text-sm">
-                          <li>
-                            <Link
-                              to={`/admin/genres/edit/${genre.id}`}
-                              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600"
-                            >
-                              Edit
-                            </Link>
-                          </li>
-                          <li>
-                            <button
-                              onClick={() => deleteGenre(genre.id)}
-                              className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600"
-                            >
-                              Delete
-                            </button>
-                          </li>
-                        </ul>
-                      </div>
-                    )}
-                  </td>
-                </tr>
-              ))}
-
-              {genres.length === 0 && (
+              {genres.length > 0 ? (
+                genres.map((genre) => (
+                  <tr key={genre.id} className="border-b dark:border-gray-700">
+                    <td className="px-4 py-3">{genre.name}</td>
+                    <td className="px-4 py-3">{genre.description || "-"}</td>
+                    <td className="px-4 py-3 text-right flex justify-end items-center">
+                      <Link
+                        to={`/admin/genres/edit/${genre.id}`}
+                        className="bg-blue-500 text-white px-3 py-1 rounded mr-2"
+                      >
+                        Edit
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(genre.id)}
+                        className="bg-red-600 text-white px-3 py-1 rounded"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
                 <tr>
-                  <td className="px-4 py-3">No Data Found</td>
+                  <td colSpan="3" className="px-4 py-3 text-center text-gray-500">
+                    No genres found.
+                  </td>
                 </tr>
               )}
             </tbody>

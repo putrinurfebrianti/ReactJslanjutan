@@ -7,24 +7,30 @@ export const getGenres = async () => {
 
 export const createGenre = async (data) => {
   try {
-    const payload = {
-      name: data.name,
-      description: data.description ?? ""
-    };
-
-    const response = await API.post("/genres", payload);
+    const response = await API.post("/genres", data);
     return response.data;
   } catch (error) {
-    console.error(error.response?.data || error);
+    console.log(error);
+    throw error;
+  }
+};
+
+export const updateGenre = async (id, data) => {
+  try {
+    const response = await API.put(`/genres/${id}`, data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
     throw error;
   }
 };
 
 export const deleteGenre = async (id) => {
   try {
-    await API.delete(`/genres/${id}`);
+    const response = await API.delete(`/genres/${id}`);
+    return response.data;
   } catch (error) {
-    console.error(error.response?.data || error);
+    console.log(error);
     throw error;
   }
 };

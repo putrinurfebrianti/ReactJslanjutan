@@ -1,91 +1,87 @@
 import { useEffect, useState } from "react";
-import { getAuthors, deleteAuthor } from "../../../_services/authors";
 import { Link } from "react-router-dom";
+import { getAuthors, deleteAuthor } from "../../../_services/authors";
 
 export default function AdminAuthors() {
   const [authors, setAuthors] = useState([]);
-  const [openDropdownId, setOpenDropdownId] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const authorsData = await getAuthors();
-      setAuthors(authorsData);
-    };
-    fetchData();
+    fetchAuthors();
   }, []);
 
-  const toggleDropdown = (id) => {
-    setOpenDropdownId(openDropdownId === id ? null : id);
+  const fetchAuthors = async () => {
+    const data = await getAuthors();
+    setAuthors(data);
+  };
+
+  const handleDelete = async (id) => {
+    if (confirm("Yakin ingin menghapus author ini?")) {
+      await deleteAuthor(id);
+      fetchAuthors();
+    }
   };
 
   return (
-    <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
+    <section className="bg-rose-50 dark:bg-rose-900 p-4 sm:p-6">
       <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-        <div className="flex justify-between p-4">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Authors</h3>
-
+        <div className="flex justify-between items-center p-4">
+          <h2 className="text-xl font-semibold text-gray-700 dark:text-white">Authors</h2>
           <Link
-            to={"/admin/authors/create"}
-            className="flex items-center justify-center text-white bg-indigo-700 hover:bg-indigo-800 font-medium rounded-lg text-sm px-4 py-2"
+            to="/admin/authors/create"
+            className="px-4 py-2 text-white bg-indigo-700 rounded hover:bg-indigo-800"
           >
-            Add Author
+            + Add Author
           </Link>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-700">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
-                <th className="px-4 py-3">Name and Biography</th>
+                <th className="px-4 py-3">Photo</th>
+                <th className="px-4 py-3">Name</th>
+                <th className="px-4 py-3">Bio</th>
+                <th className="px-4 py-3 text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {authors.map((author) => (
-                <tr key={author.id} className="border-b dark:border-gray-700">
-                  <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                    {author.name}
-                  <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                    {author.bio}
-                  </td>
-                  </td>
-
-                  <td className="px-4 py-3 flex items-center justify-end relative">
-                    <button
-                      onClick={() => toggleDropdown(author.id)}
-                      className="text-gray-500 hover:text-gray-800 dark:text-gray-400"
-                    >
-                      ⋮
-                    </button>
-
-                    {openDropdownId === author.id && (
-                      <div className="absolute right-0 z-10 w-32 bg-white dark:bg-gray-700 rounded shadow">
-                        <ul className="py-1 text-sm">
-                          <li>
-                            <Link
-                              to={`/admin/authors/edit/${author.id}`}
-                              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600"
-                            >
-                              Edit
-                            </Link>
-                          </li>
-                          <li>
-                            <button
-                              onClick={() => deleteAuthor(author.id)}
-                              className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600"
-                            >
-                              Delete
-                            </button>
-                          </li>
-                        </ul>
-                      </div>
-                    )}
-                  </td>
-                </tr>
-              ))}
-
-              {authors.length === 0 && (
+              {authors.length > 0 ? (
+                authors.map((author) => (
+                  <tr key={author.id} className="border-b dark:border-gray-700">
+                    <td className="px-4 py-3">
+                      {author.photo ? (
+                        <img
+                          src={author.photo}
+                          alt={author.name}
+                          className="w-12 h-12 object-cover rounded-full"
+                        />
+                      ) : (
+                        <span className="text-gray-400 italic">No photo</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-3">{author.name}</td>
+                    <td className="px-4 py-3">{author.bio || "-"}</td>
+                    <td className="px-4 py-3 text-right flex justify-end items-center">
+                      <Link
+                        to={`/admin/authors/edit/${author.id}`}
+                        className="bg-blue-500 text-white px-3 py-1 rounded mr-2"
+                      >
+                        Edit
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(author.id)}
+                        className="bg-red-600 text-white px-3 py-1 rounded"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
                 <tr>
-                  <td className="px-4 py-3">No Data Found</td>
+                  <td colSpan="4" className="px-4 py-3 text-center text-gray-500">
+                    No authors found.
+                  </td>
                 </tr>
               )}
             </tbody>
