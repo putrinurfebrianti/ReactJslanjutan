@@ -9,12 +9,12 @@ export default function Books() {
                 <a href="#">
                   <img
                     className="mx-auto h-full dark:hidden"
-                    src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg"
+                    src="https://ebooks.gramedia.com/ebook-covers/46792/image_highres/ID_LSPS1681093028391.jpg"
                     alt=""
                   />
                   <img
                     className="mx-auto hidden h-full dark:block"
-                    src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg"
+                    src="https://ebooks.gramedia.com/ebook-covers/46792/image_highres/ID_LSPS1681093028391.jpg"
                     alt=""
                   />
                 </a>
@@ -24,7 +24,7 @@ export default function Books() {
                   href="#"
                   className="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white"
                 >
-                  Apple iMac 27", 1TB HDD, Retina 5K Display, M3 Max
+                  Lima Sekawan di Pulau Hantu
                 </a>
 
                 <ul className="mt-2 flex items-center gap-4">
@@ -72,7 +72,7 @@ export default function Books() {
 
                 <div className="mt-4 flex items-center justify-between gap-4">
                   <p className="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">
-                    $1,699
+                    Rp. 75.000
                   </p>
 
                   <button
@@ -106,12 +106,12 @@ export default function Books() {
                 <a href="#">
                   <img
                     className="mx-auto h-full dark:hidden"
-                    src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/iphone-light.svg"
+                    src="https://bukukita.com/babacms/displaybuku/95219_f.jpg"
                     alt=""
                   />
                   <img
                     className="mx-auto hidden h-full dark:block"
-                    src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/iphone-dark.svg"
+                    src="https://bukukita.com/babacms/displaybuku/95219_f.jpg"
                     alt=""
                   />
                 </a>
@@ -122,7 +122,7 @@ export default function Books() {
                   href="#"
                   className="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white"
                 >
-                  Apple iPhone 15 Pro Max, 256GB, Blue Titanium
+                  Bumi
                 </a>
 
                 <ul className="mt-2 flex items-center gap-4">
@@ -172,7 +172,7 @@ export default function Books() {
 
                 <div className="mt-4 flex items-center justify-between gap-4">
                   <p className="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">
-                    $1,199
+                    Rp. 99.500
                   </p>
 
                   <button
@@ -206,12 +206,12 @@ export default function Books() {
                 <a href="#">
                   <img
                     className="mx-auto h-full dark:hidden"
-                    src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/ipad-light.svg"
+                    src="https://ebooks.gramedia.com/ebook-covers/40151/big_covers/ID_GPU2017MTH09TLOTRSPCFOTRUCB_B.jpg"
                     alt=""
                   />
                   <img
                     className="mx-auto hidden h-full dark:block"
-                    src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/ipad-dark.svg"
+                    src="https://ebooks.gramedia.com/ebook-covers/40151/big_covers/ID_GPU2017MTH09TLOTRSPCFOTRUCB_B.jpg"
                     alt=""
                   />
                 </a>
@@ -222,7 +222,7 @@ export default function Books() {
                   href="#"
                   className="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white"
                 >
-                  iPad Pro 13-Inch (M4): XDR Display, 512GB
+                  The Lord of the Rings: Fellowship of the Ring
                 </a>
 
                 <ul className="mt-2 flex items-center gap-4">
@@ -270,7 +270,7 @@ export default function Books() {
 
                 <div className="mt-4 flex items-center justify-between gap-4">
                   <p className="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">
-                    $799
+                    Rp. 150.000
                   </p>
 
                   <button
@@ -304,12 +304,12 @@ export default function Books() {
                 <a href="#">
                   <img
                     className="mx-auto h-full dark:hidden"
-                    src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/ps5-light.svg"
+                    src="https://ebooks.gramedia.com/ebook-covers/49184/image_highres/ID_AHPK2019MTH09AHP.jpg"
                     alt=""
                   />
                   <img
                     className="mx-auto hidden h-full dark:block"
-                    src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/ps5-dark.svg"
+                    src="https://ebooks.gramedia.com/ebook-covers/49184/image_highres/ID_AHPK2019MTH09AHP.jpg"
                     alt=""
                   />
                 </a>
@@ -320,7 +320,7 @@ export default function Books() {
                   href="#"
                   className="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white"
                 >
-                  PlayStation®5 Console – 1TB, PRO Controller
+                  Atomic Habits
                 </a>
 
                 <ul className="mt-2 flex items-center gap-4">
@@ -368,7 +368,7 @@ export default function Books() {
 
                 <div className="mt-4 flex items-center justify-between gap-4">
                   <p className="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">
-                    $499
+                    Rp. 88.500
                   </p>
 
                   <button

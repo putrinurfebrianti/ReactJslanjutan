@@ -6,34 +6,21 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function AdminBooks() {
   const [books, setBooks] = useState([]);
-  const [genres, setGenres] = useState([]);
-  const [authors, setAuthors] = useState([]);
   const [openDropdownId, setOpenDropdownId] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
-      const [booksData, genresData, authorsData] = await Promise.all([
+      const [booksData] = await Promise.all([
         getBooks(),
         getGenres(),
         getAuthors(),
       ]);
       setBooks(booksData);
-      setGenres(genresData);
-      setAuthors(authorsData);
+
     };
     fetchData();
   }, []);
-
-  const getGenreName = (id) => {
-    const genre = genres.find((genre) => genre.id === id);
-    return genre ? genre.name : "Unknown Genre";
-  };
-
-  const getAuthorName = (id) => {
-    const author = authors.find((author) => author.id === id);
-    return author ? author.name : "Unknown Author";
-  };
 
   const toggleDropdown = (id) => {
     setOpenDropdownId(openDropdownId === id ? null : id);
@@ -104,8 +91,12 @@ export default function AdminBooks() {
                     <td className="px-4 py-3">{book.price}</td>
                     <td className="px-4 py-3">{book.stock}</td>
                     <td className="px-4 py-3 truncate max-w-xs">{book.cover_photo}</td>
-                    <td className="px-4 py-3">{getGenreName(book.genre_id)}</td>
-                    <td className="px-4 py-3">{getAuthorName(book.author_id)}</td>
+                    <td className="px-4 py-3">
+                      {book.genre ? book.genre.name : "Unknown Genre"}
+                    </td>
+                    <td className="px-4 py-3">
+                      {book.author ? book.author.name : "Unknown Author"}
+                    </td>
                     <td className="px-4 py-3 flex justify-end relative">
                       <button
                         onClick={() => toggleDropdown(book.id)}

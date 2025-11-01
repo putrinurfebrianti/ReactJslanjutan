@@ -5,6 +5,8 @@ export default function Navbar() {
   const token = localStorage.getItem("accessToken");
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
+  
+
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("userInfo");

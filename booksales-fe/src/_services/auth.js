@@ -1,3 +1,4 @@
+
 import { useJwt } from "react-jwt";
 import API from "../_api";
 
@@ -58,3 +59,20 @@ export const useDecodeToken = (token) => {
     };
   }
 };
+
+export async function Login(email, password) {
+  const response = await fetch("/api/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  });
+
+  const data = await response.json();
+
+  if (response.ok) {
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("role", data.user.role); 
+  }
+
+  return data;
+}

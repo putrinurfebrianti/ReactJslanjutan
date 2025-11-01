@@ -1,12 +1,11 @@
+
+
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../_services/auth";
 
 export default function Login() {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: ""
-  });
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -15,10 +14,7 @@ export default function Login() {
   const token = localStorage.getItem("accessToken");
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -31,20 +27,13 @@ export default function Login() {
       localStorage.setItem("accessToken", response.token);
       localStorage.setItem("userInfo", JSON.stringify(response.user));
 
-      if (response.user.role === "admin") {
-        navigate("/admin");
-      } else {
-        navigate("/");
-      }
-    } catch (error) {
-      const message = error.response?.data?.message || "Terjadi kesalahan";
-      if (message.toLowerCase().includes("email")) {
-        setError("Email anda salah");
-      } else if (message.toLowerCase().includes("password")) {
-        setError("Password anda salah");
-      } else {
-        setError("Email atau password tidak valid");
-      }
+      if (response.user.role === "admin") navigate("/admin");
+      else navigate("/");
+    } catch (err) {
+      const message = err.response?.data?.message?.toLowerCase() || "";
+      if (message.includes("email")) setError("Email anda salah");
+      else if (message.includes("password")) setError("Password anda salah");
+      else setError("Email atau password tidak valid");
     } finally {
       setLoading(false);
     }
@@ -54,13 +43,11 @@ export default function Login() {
     const userInfo = localStorage.getItem("userInfo");
     if (token && userInfo) {
       const user = JSON.parse(userInfo);
-      if (user.role === "admin") {
-        navigate("/admin");
-      } else {
-        navigate("/");
-      }
+      if (user.role === "admin") navigate("/admin");
+      else navigate("/");
     }
-  }, [token, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <section className="bg-white">
@@ -96,6 +83,7 @@ export default function Login() {
                   required
                 />
               </div>
+
               <div>
                 <label
                   htmlFor="password"
@@ -116,10 +104,11 @@ export default function Login() {
                   />
                   <button
                     type="button"
-                    onClick={() => setShowPassword(!showPassword)}
+                    onClick={() => setShowPassword((prev) => !prev)}
                     className="absolute inset-y-0 right-2 flex items-center p-1"
                   >
                     {showPassword ? (
+                     
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-6 w-6 text-pink-500"
@@ -140,6 +129,7 @@ export default function Login() {
                         />
                       </svg>
                     ) : (
+                      
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-6 w-6 text-pink-500"
@@ -165,25 +155,18 @@ export default function Login() {
               </div>
 
               <div className="flex items-start">
-                <div className="flex items-center h-5">
-                  <input
-                    id="terms"
-                    type="checkbox"
-                    className="w-4 h-4 border border-pink-200 rounded bg-white focus:ring-pink-300"
-                    required
-                  />
-                </div>
-                <div className="ml-3 text-sm">
-                  <label htmlFor="terms" className="font-light text-pink-700">
-                    I accept the{" "}
-                    <a
-                      href="#"
-                      className="font-medium text-pink-500 hover:underline"
-                    >
-                      Terms and Conditions
-                    </a>
-                  </label>
-                </div>
+                <input
+                  id="terms"
+                  type="checkbox"
+                  className="w-4 h-4 border border-pink-200 rounded bg-white focus:ring-pink-300"
+                  required
+                />
+                <label htmlFor="terms" className="ml-3 text-sm font-light text-pink-700">
+                  I accept the{" "}
+                  <a href="#" className="font-medium text-pink-500 hover:underline">
+                    Terms and Conditions
+                  </a>
+                </label>
               </div>
 
               <button
@@ -194,7 +177,7 @@ export default function Login() {
                 {loading ? "Signing in..." : "Sign in"}
               </button>
 
-             <p className="text-sm font-light text-pink-700">
+              <p className="text-sm font-light text-pink-700">
                 Don’t have an account yet?{" "}
                 <Link
                   to="/register"
@@ -203,7 +186,6 @@ export default function Login() {
                   Sign up
                 </Link>
               </p>
-
             </form>
           </div>
         </div>

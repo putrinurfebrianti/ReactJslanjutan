@@ -20,16 +20,20 @@ export default function AdminLayout() {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
+
   useEffect(() => {
     if (!token || !decodedData || !decodedData.success) {
       navigate("/login");
+      return;
     }
 
     const role = userInfo?.role;
     if (role !== "admin" || !role) {
       navigate("/");
     }
-  }, [token, decodedData, navigate, userInfo]);
+   
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
@@ -39,10 +43,8 @@ export default function AdminLayout() {
 
   return (
     <div className="antialiased bg-pink-50 dark:bg-gray-900">
-    
       <nav className="bg-white border-b border-gray-200 px-4 py-2.5 fixed left-0 right-0 top-0 z-50 shadow-sm">
         <div className="flex justify-between items-center">
-          
           <div className="flex items-center">
             <button
               data-drawer-target="drawer-navigation"
@@ -58,8 +60,7 @@ export default function AdminLayout() {
               >
                 <path
                   fillRule="evenodd"
-                  d="M3 5a1 1 0 011-1h12a1 1 0 
-                  110 2H4a1 1 0 01-1-1zM3 10a1 1 
+                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 
                   0 011-1h6a1 1 0 110 2H4a1 1 
                   0 01-1-1zM3 15a1 1 0 
                   011-1h12a1 1 0 110 2H4a1 1 
@@ -79,14 +80,11 @@ export default function AdminLayout() {
             </Link>
           </div>
 
-         
           <div className="flex items-center gap-3">
-           
             <div className="bg-pink-100 text-pink-700 font-medium px-3 py-1 rounded-full text-sm shadow-sm">
               Admin
             </div>
 
-            
             <div className="relative">
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -133,7 +131,6 @@ export default function AdminLayout() {
         </div>
       </nav>
 
-      
       <aside
         id="drawer-navigation"
         className="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full 
@@ -151,7 +148,6 @@ export default function AdminLayout() {
                 <span className="ml-3">Overview</span>
               </Link>
             </li>
-
             <li>
               <Link
                 to="/admin/users"
@@ -161,7 +157,6 @@ export default function AdminLayout() {
                 <span className="ml-3">Users</span>
               </Link>
             </li>
-
             <li>
               <Link
                 to="/admin/authors"
@@ -171,7 +166,6 @@ export default function AdminLayout() {
                 <span className="ml-3">Authors</span>
               </Link>
             </li>
-
             <li>
               <Link
                 to="/admin/genres"
@@ -181,7 +175,6 @@ export default function AdminLayout() {
                 <span className="ml-3">Genres</span>
               </Link>
             </li>
-
             <li>
               <Link
                 to="/admin/books"
@@ -191,7 +184,6 @@ export default function AdminLayout() {
                 <span className="ml-3">Books</span>
               </Link>
             </li>
-
             <li>
               <Link
                 to="/admin/transactions"
@@ -201,7 +193,6 @@ export default function AdminLayout() {
                 <span className="ml-3">Transaction</span>
               </Link>
             </li>
-
             <li>
               <Link
                 to="/admin/help"
@@ -211,7 +202,6 @@ export default function AdminLayout() {
                 <span className="ml-3">Help</span>
               </Link>
             </li>
-
             <li>
               <button
                 onClick={handleLogout}
@@ -225,7 +215,6 @@ export default function AdminLayout() {
         </div>
       </aside>
 
-      
       <main className="p-4 md:ml-64 pt-20 min-h-screen bg-pink-50">
         <div className="border-2 border-dashed border-pink-200 rounded-lg bg-white shadow-sm px-4 pt-4 pb-6">
           <Outlet />

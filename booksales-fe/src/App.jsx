@@ -1,3 +1,4 @@
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/public";
 import Books from "./pages/public/books";
@@ -14,6 +15,10 @@ import AdminGenres from "./pages/admin/genres";
 import GenreCreate from "./pages/admin/genres/create";
 import AuthorEdit from "./pages/admin/authors/edit";
 import GenreEdit from "./pages/admin/genres/edit";
+
+
+import { AuthProvider } from "./_context/AuthContext";
+import ProtectedRoute from "./components/routes/ProtectedRoute";
 
 function App() {
   return (
@@ -59,5 +64,31 @@ function App() {
     </>
   );
 }
+
+<AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* Public routes */}
+          <Route element={<PublicLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Route>
+
+          {/* Admin routes (protected) */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<Dashboard />} />
+            <Route path="books" element={<AdminBooks />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
 
 export default App;
